@@ -19,6 +19,17 @@ ObjectID jokbo1;
 ObjectID ruler;
 bool lightState = true;
 bool box1Open = false;
+
+
+ObjectID r0_door1;
+ObjectID r0_door2;
+bool r0_door1Open = false;
+
+ObjectID picture[4];
+
+ObjectID window;
+ObjectID hitter;
+bool windowOpen = true;
 ////////////////////
 void sceneCallback(SceneID scene, EventID event)
 {
@@ -69,6 +80,7 @@ void changeRoom(int RoomNumber) {
 	enterScene(Rooms[RoomNumber*4]);
 }
 void SetObjectRoom0(){
+	//전면
 	board = createObject("Images/Room0/Board.png");
 	locateObject(board, Rooms[0], 174, 720-260);
 	showObject(board);
@@ -94,6 +106,34 @@ void SetObjectRoom0(){
 		locateObject(desk[i], Rooms[0], 280+(i%5)*150, 720-420-(i/5)*100);
 		showObject(desk[i]);
 	}
+
+	///측면(우)
+	r0_door1 = createObject("Images/Room0/door_close.png");
+	locateObject(r0_door1, Rooms[1], 170, 130);
+	showObject(r0_door1);
+	r0_door2 = createObject("Images/Room0/door_closeX.png");
+	locateObject(r0_door2, Rooms[1], 860, 15);
+	showObject(r0_door2);
+
+	///측면(좌)
+	hitter = createObject("Images/Room0/hitter.png");
+	locateObject(hitter, Rooms[3], 60, -20);
+	showObject(hitter);
+	window = createObject("Images/Room0/window_open.png");
+	locateObject(window, Rooms[3], 10, 150 );
+	showObject(window);
+
+
+	///후면
+	for (int i = 0; i < 4; i++)
+	{
+
+		sprintf_s(path, "Images/Room0/picture%d.png", i + 1);
+		picture[i] = createObject(path);
+
+		locateObject(picture[i], Rooms[2],200+i*250,360);
+		showObject(picture[i]);
+	}
 }
 void SetObjectCallbackRoom0(ObjectID id, EventID event) {
 	if (event == EventID::EVENT_KEYPAD) {
@@ -104,41 +144,81 @@ void SetObjectCallbackRoom0(ObjectID id, EventID event) {
 			pickObject(jokbo1);
 			pickObject(ruler);
 		}
+		if (id == r0_door1) {
+			r0_door1Open = true;
+			setObjectImage(r0_door1, "Images/Room0/door_open.png");
+			showMessage("나갈 수 있는 문이 열렸다.");
+		}
 	}
-
 }
 void SetMouseCallBackRoom0(ObjectID id, int x, int y, MouseAction action){
 	if (action == MouseAction::MOUSE_CLICK) {
 		if (id == box && box1Open ==false) {
-			showKeypad("AAAA1",box);
+			showKeypad("GAJA1",box);
+		}
+		else if (id == lightSwitch) {
+			lightState = lightState ? false : true; 
+			float light = 1;
+			if (!lightState) {
+				light = 0.7f;
+				char path[100];
+				for (int i = 0; i < 20; i++)
+				{
+					sprintf_s(path, "Images/Room0/Desks/desk_light (%d).png", i + 1);
+					setObjectImage(desk[i], path);
+				}
+			}
+			else {
+				char path[100];
+				for (int i = 0; i < 20; i++)
+				{
 
-		}
-		if (id == lightSwitch) {
-			lightState = lightState ? false : true;
-		}
-		float light=1;
-		if (!lightState) {
-			light = 0.7f;
-			char path[100];
-			for (int i = 0; i < 20; i++)
+					sprintf_s(path, "Images/Room0/Desks/desk (%d).png", i + 1);
+					setObjectImage(desk[i], path);
+				}
+			}
+			for (int i = 0; i < 4; i++)
 			{
-
-				sprintf_s(path, "Images/Room0/Desks/desk_light (%d).png", i + 1);
-				setObjectImage(desk[i],path);
+				setSceneLight(Rooms[i], light);
 			}
 		}
-		else {
-			char path[100];
-			for (int i = 0; i < 20; i++)
-			{
+		else if (id == window) {
+			windowOpen = !windowOpen;
+			if (windowOpen)
+				setObjectImage(window, "Images/Room0/window_open.png");
+			else
+				setObjectImage(window, "Images/Room0/window_close.png");
 
-				sprintf_s(path, "Images/Room0/Desks/desk (%d).png", i + 1);
-				setObjectImage(desk[i], path);
+		}
+		else if (id == hitter) {
+			if (!windowOpen) {
+				setObjectImage(window, "Images/Room0/window_close_hit.png");
 			}
 		}
-		for (int i = 0; i < 4; i++)
-		{
-			setSceneLight(Rooms[i], light);
+		else if (id == r0_door1) {
+			if(r0_door1Open == false)
+			showKeypad("FJCG", r0_door1);
+			else {
+				changeRoom(1);
+			}
+		}
+		else if (id == r0_door2) {
+			showMessage("이 문은 바깥에서 잠겨있는 것 같다.");
+		}
+		else  {
+			for (int i = 0; i < 4; i++)
+			{
+				if (id == picture[i]) {
+					char path[100];
+					if(getHandObject()==ruler)
+					sprintf_s(path, "Images/Room0/picture%d_on.png", i + 1);
+					else
+						sprintf_s(path, "Images/Room0/picture%d.png", i + 1);
+
+					showImageViewer(path);
+				}
+			}
+			
 		}
 	}
 	else if (action == MouseAction::MOUSE_DRAG_LEFT) {
@@ -153,11 +233,11 @@ void SetMouseCallBackRoom0(ObjectID id, int x, int y, MouseAction action){
 	}
 }
 void init_room0() {//씬 생성해서 Rooms에 할당, 오브젝트 배치
-	Rooms[0] = createScene("강의실1", "Images/Room0/backGround0.png");
+	Rooms[0] = createScene("강의실", "Images/Room0/backGround0.png");
+	Rooms[1] = createScene("강의실", "Images/Room0/backGround1.png");
+	Rooms[2] = createScene("강의실", "Images/Room0/backGround2.png");
+	Rooms[3] = createScene("강의실", "Images/Room0/backGround3.png");
 	SetObjectRoom0();
-	Rooms[1] = createScene("강의실2", "Images/배경-1.png");
-	Rooms[2] = createScene("강의실3", "Images/배경-1.png");
-	Rooms[3] = createScene("강의실4", "Images/배경-1.png");
 }
 void init_room1() {
 	Rooms[4] = createScene("실습실1", "Images/배경-1.png");
