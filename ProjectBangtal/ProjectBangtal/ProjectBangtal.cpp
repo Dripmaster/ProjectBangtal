@@ -3,6 +3,10 @@
 
 #include <Bangtal.h>
 #include <stdio.h> 
+
+SceneID titleScene;
+ObjectID startBtn;
+//////////////////
 SceneID Rooms[21];
 ObjectID leftArrow;
 ObjectID rightArrow;
@@ -12,7 +16,7 @@ int maxView;
 //////////////////Room0 Objects
 ObjectID board;
 ObjectID desk[20];
-ObjectID table;
+ObjectID studyTable;
 ObjectID box;
 ObjectID lightSwitch;
 ObjectID jokbo1;
@@ -87,9 +91,9 @@ void SetObjectRoom0(){
 	box = createObject("Images/Room0/boxClose.png");
 	locateObject(box, Rooms[0], 589,720-334);
 	showObject(box);
-	table = createObject("Images/Room0/table.png");
-	locateObject(table, Rooms[0], 539, 720 - 350);
-	showObject(table);
+	studyTable = createObject("Images/Room0/table.png");
+	locateObject(studyTable, Rooms[0], 539, 720 - 350);
+	showObject(studyTable);
 	lightSwitch = createObject("Images/Room0/Light_on.png");
 	locateObject(lightSwitch, Rooms[0], 1127, 720 - 180);
 	showObject(lightSwitch);
@@ -134,6 +138,116 @@ void SetObjectRoom0(){
 		locateObject(picture[i], Rooms[2],200+i*250,360);
 		showObject(picture[i]);
 	}
+}
+ObjectID r1_door1;
+ObjectID clock;
+ObjectID display;
+ObjectID ironBoard;
+ObjectID table1;
+ObjectID table2;
+ObjectID table3;
+ObjectID whiteBoard;
+
+ObjectID r1_door2;
+ObjectID display2;
+ObjectID table1_2;
+ObjectID table2_2;
+ObjectID table3_2; 
+
+ObjectID r1_door3;
+ObjectID clock2;
+ObjectID display3;
+ObjectID table1_3;
+ObjectID table2_3;
+ObjectID table3_3; 
+ObjectID whiteBoard2;
+
+ObjectID r1_door4;
+ObjectID clock3;
+ObjectID ironBoard2;
+ObjectID whiteBoard3;
+void SetObjectRoom1() {
+	//전면
+	r1_door1 = createObject("Images/Room1/실습실_1면/실습실 1면 문.png");
+	clock = createObject("Images/Room1/실습실_1면/실습실 1면 시계.png");
+	ironBoard = createObject("Images/Room1/실습실_1면/실습실 1면 철판.png");
+	table1 = createObject("Images/Room1/실습실_1면/실습실 1면 탁자1.png");
+	table2 = createObject("Images/Room1/실습실_1면/실습실 1면 탁자2.png");
+	table3 = createObject("Images/Room1/실습실_1면/실습실 1면 탁자3.png");
+	display = createObject("Images/Room1/실습실_1면/실습실 1면 유리장식장.png");
+	whiteBoard = createObject("Images/Room1/실습실_1면/실습실 1면 화이트보드.png");
+
+	locateObject(r1_door1, Rooms[4], 556, 282);
+	locateObject(clock, Rooms[4], 174, 573);
+	locateObject(ironBoard, Rooms[4], 412, 221);
+	locateObject(table1, Rooms[4], 764, 36);
+	locateObject(table2, Rooms[4], 852, 239);
+	locateObject(table3, Rooms[4], 852, 512);
+	locateObject(display, Rooms[4], 966, 0);
+	locateObject(whiteBoard, Rooms[4], 41, 208);
+	///측면(우)
+	r1_door2 = createObject("Images/Room1/실습실_2면/실습실 2면 문.png");
+	table1_2 = createObject("Images/Room1/실습실_2면/실습실 2면 탁자1.png");
+	table2_2 = createObject("Images/Room1/실습실_2면/실습실 2면 탁자2.png");
+	table3_2 = createObject("Images/Room1/실습실_2면/실습실 2면 탁자3.png");
+	display2 = createObject("Images/Room1/실습실_2면/실습실 2면 유리장식장.png");
+	
+	locateObject(r1_door2, Rooms[5], 0, 59);
+	locateObject(table1_2, Rooms[5], 81, 42);
+	locateObject(table2_2, Rooms[5], 160, 245);
+	locateObject(table3_2, Rooms[5], 161, 473);
+	locateObject(display2, Rooms[5], 815, 16);
+	///측면(좌)
+	r1_door3    = createObject("Images/Room1/실습실_3면/실습실 3면 문.png");
+	clock2      = createObject("Images/Room1/실습실_3면/실습실 3면 시계.png");
+	display3    = createObject("Images/Room1/실습실_3면/실습실 3면 유리장식장.png");
+	table1_3    = createObject("Images/Room1/실습실_3면/실습실 3면 탁자1.png");
+	table2_3    = createObject("Images/Room1/실습실_3면/실습실 3면 탁자2.png");
+	table3_3    = createObject("Images/Room1/실습실_3면/실습실 3면 탁자3.png");
+	whiteBoard2 = createObject("Images/Room1/실습실_3면/실습실 3면 화이트보드.png");
+
+	locateObject(r1_door3, Rooms[6], 556, 282);
+	locateObject(clock2, Rooms[6], 1221, 557);
+	locateObject(display3, Rooms[6], 155, 80);
+	locateObject(table1_3, Rooms[6], 0, 0);
+	locateObject(table2_3, Rooms[6], 0, 123);
+	locateObject(table3_3, Rooms[6], 0, 484);
+	locateObject(whiteBoard2, Rooms[6], 1125, 188);
+	///후면
+	r1_door4   = createObject("Images/Room1/실습실_4면/실습실 4면 문.png");
+	clock3      = createObject("Images/Room1/실습실_4면/실습실 4면 시계.png");
+	ironBoard2   = createObject("Images/Room1/실습실_4면/실습실 4면 철판.png");
+	whiteBoard3 = createObject("Images/Room1/실습실_4면/실습실 4면 화이트보드.png");
+
+	locateObject(r1_door4, Rooms[7], 1237, 58);
+	locateObject(clock3, Rooms[7], 634, 571);
+	locateObject(ironBoard2, Rooms[7], 968, 61);
+	locateObject(whiteBoard3, Rooms[7], 366, 230);
+	//
+	showObject(r1_door1);
+	showObject(clock);
+	showObject(ironBoard);
+	showObject(table1);
+	showObject(table2);
+	showObject(table3);
+	showObject(display);
+	showObject(whiteBoard);
+	showObject(r1_door2);
+	showObject(display2);
+	showObject(table1_2);
+	showObject(table2_2);
+	showObject(table3_2);
+	showObject(r1_door3);
+	showObject(clock2);
+	showObject(display3);
+	showObject(table1_3);
+	showObject(table2_3);
+	showObject(table3_3);
+	showObject(whiteBoard2);
+	showObject(r1_door4);
+	showObject(clock3);
+	showObject(ironBoard2);
+	showObject(whiteBoard3);
 }
 void SetObjectCallbackRoom0(ObjectID id, EventID event) {
 	if (event == EventID::EVENT_KEYPAD) {
@@ -222,13 +336,13 @@ void SetMouseCallBackRoom0(ObjectID id, int x, int y, MouseAction action){
 		}
 	}
 	else if (action == MouseAction::MOUSE_DRAG_LEFT) {
-		if (id == table) {
-			locateObject(table,Rooms[0],389, 720 - 350);
+		if (id == studyTable) {
+			locateObject(studyTable,Rooms[0],389, 720 - 350);
 		}
 	}
 	else if (action == MouseAction::MOUSE_DRAG_RIGHT) {
-		if (id == table) {
-			locateObject(table, Rooms[0], 709, 720 - 350);
+		if (id == studyTable) {
+			locateObject(studyTable, Rooms[0], 709, 720 - 350);
 		}
 	}
 }
@@ -240,10 +354,11 @@ void init_room0() {//씬 생성해서 Rooms에 할당, 오브젝트 배치
 	SetObjectRoom0();
 }
 void init_room1() {
-	Rooms[4] = createScene("실습실1", "Images/배경-1.png");
-	Rooms[5] = createScene("실습실2", "Images/배경-1.png");
-	Rooms[6] = createScene("실습실3", "Images/배경-1.png");
-	Rooms[7] = createScene("실습실4", "Images/배경-1.png");
+	Rooms[4] = createScene("실습실", "Images/Room1/실습실_1면/실습실 1면 배경.png");
+	Rooms[5] = createScene("실습실", "Images/Room1/실습실_2면/실습실 2면 배경.png");
+	Rooms[6] = createScene("실습실", "Images/Room1/실습실_3면/실습실 3면 배경.png");
+	Rooms[7] = createScene("실습실", "Images/Room1/실습실_4면/실습실 4면 배경.png");
+	SetObjectRoom1();
 }
 void init_room2() {
 	Rooms[8] = createScene("백마상 앞1", "Images/배경-1.png");
@@ -265,6 +380,15 @@ void init_room4() {
 	Rooms[19] = createScene("비밀의방4", "Images/배경-1.png");
 }
 void mouseCallback(ObjectID id, int x, int y, MouseAction action) {
+	if (id == startBtn && action == MouseAction::MOUSE_CLICK) {
+		enterScene(Rooms[currentRoom * 4]);
+
+
+		setGameOption(GameOption::GAME_OPTION_ROOM_TITLE, 1);
+		setGameOption(GameOption::GAME_OPTION_INVENTORY_BUTTON, 1);
+		setGameOption(GameOption::GAME_OPTION_MESSAGE_BOX_BUTTON, 1);
+
+	}
 	arrawCallback(id, x, y, action);
 	SetMouseCallBackRoom0(id, x, y, action);
 }
@@ -275,6 +399,16 @@ int main()
 {
 	maxView = 4;
 	currentView = 0;
+
+
+	titleScene = createScene("title", "Images/title/backGround.png");
+	startBtn = createObject("Images/title/startBtn.png");
+	setGameOption(GameOption::GAME_OPTION_ROOM_TITLE, 0);
+	setGameOption(GameOption::GAME_OPTION_INVENTORY_BUTTON, 0);
+	setGameOption(GameOption::GAME_OPTION_MESSAGE_BOX_BUTTON, 0);
+	locateObject(startBtn, titleScene, 170, 130);
+	showObject(startBtn);
+
 	init_room0();
 	init_room1();
 	init_room2();
@@ -285,5 +419,6 @@ int main()
 	setSceneCallback(sceneCallback);
 	setObjectCallback(objectCallback);
 
-	startGame(Rooms[0]);
+	changeRoom(0);
+	startGame(titleScene);
 }
